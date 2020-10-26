@@ -1,5 +1,9 @@
 .page-nav-bar {
-  background-color: #000;
+  background: url("../img/timg.jpg") no-repeat
+  800px 0px;
+  border: none;
+  background-size: cover;
+/* color: #000 !important; */
 }
 .page-nav-bar .van-nav-bar__title {
   color: #fff !important;

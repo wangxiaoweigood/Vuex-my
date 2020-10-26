@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+
 // 登录发送手机号和验证码
 export const login = data => {
   return request({
@@ -13,5 +14,12 @@ export const sendSms = mobile => {
     method: 'GET',
     url: `/app/v1_0/sms/codes/${mobile}`,
     mobile
+  })
+}
+// // 获取个人信息接口
+export const getUserInfo = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/user'
   })
 }

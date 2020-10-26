@@ -7,7 +7,6 @@ export const setItem = (key, value) => {
   }
   window.localStorage.setItem(key, value)
 }
-console.log(setItem)
 // 获取数据
 export const getItem = key => {
   const data = window.localStorage.getItem(key)

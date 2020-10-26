@@ -5,14 +5,14 @@
     <!-- 登录区域 -->
     <van-form @submit="onSubmit" ref="LoginForm">
       <van-field
-        :rules="FormRules.name"
+        name="mobile"
+        :rules="FormRules.mobile"
         type="number"
         placeholder="请输入手机号"
         v-model="user.mobile"
       >
         <!-- <van-field
         type="number"
-
         placeholder="请输入手机号"
         v-model="user.mobile"
         :rules="FormRules.name"
@@ -43,6 +43,7 @@
             type="primary"
             class="van-button-but"
             @click="Captcha"
+            native-type="button"
             >获取验证码</van-button
           >
         </template></van-field
@@ -56,6 +57,8 @@
 
 <script>
 import { login, sendSms } from '@/api/user'
+// import { login } from "@/api/user";
+
 export default {
   name: 'LoginIndex',
   components: {},
@@ -63,11 +66,11 @@ export default {
   data () {
     return {
       user: {
-        mobile: '13911111111',
-        code: '246810'
+        mobile: '', // 手机号
+        code: '' // 验证码
       },
       FormRules: {
-        name: [
+        mobile: [
           {
             required: true,
             message: '请填写手机号码'
@@ -98,6 +101,7 @@ export default {
   methods: {
     // 表单事件
     async onSubmit () {
+      console.log(this.user)
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true, // 禁止背景点击
@@ -105,37 +109,43 @@ export default {
       })
       try {
         const { data } = await login(this.user)
+        console.log(data)
         this.$store.commit('setUser', data.data)
         console.log(data.data)
+        this.$router.push('layout')
         this.$toast.success('登录成功')
       } catch (err) {
         // console.log(err)
-        if (err.status !== 201) {
-          this.$toast.fail('登录失败')
-        }
+        // if (err.status !== 201) {
+        this.$toast.fail('登录失败')
+        // }
       }
     },
     // 点击验证码事件
+    // Captcha () {
+    //   console.log('1')
+    // }
     async Captcha () {
       // console.log('1')
       // 1 验证手机号码。
       try {
-        await this.$refs.LoginForm.validate('name')
+        await this.$refs.LoginForm.validate('mobile')
       } catch (err) {
         return console.log('验证失败', err)
       }
       // 2 倒计时
       this.Countdown = true
-      // 3发送验证码
+      // // 3发送验证码
       try {
+        console.log(this.user.mobile)
         await sendSms(this.user.mobile)
       } catch (err) {
-        // console.log('发送失败', err)
-        if (err.response.status === 429) {
-          this.$toast.fail('请60秒后点击发送')
-        } else {
-          this.$toast('发送失败,请重试')
-        }
+        console.log('发送失败', err)
+        // if (err.response.status === 429) {
+        this.$toast.fail('请60秒后点击发送')
+        // } else {
+        //   this.$toast('发送失败,请重试')
+        // }
       }
     }
   }
@@ -144,8 +154,8 @@ export default {
 
 <style lang="less" scoped>
 .box {
-  background: url("../img/1433263250c022089d88ad95eaa6a535.jpg") no-repeat 0px
-    0px;
+  background: url("../../img/1433263250c022089d88ad95eaa6a535.jpg") no-repeat
+    0px 0px;
   width: 100%;
   height: 100%;
   background-size: cover;
@@ -176,6 +186,9 @@ export default {
     background: rgba(255, 255, 255, 0.1) !important;
     margin-top: 40px;
     border-radius: 100px;
+  }
+  .page-nav-bar {
+    border: none;
   }
 }
 </style>
