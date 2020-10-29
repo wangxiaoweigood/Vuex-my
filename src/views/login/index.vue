@@ -1,5 +1,6 @@
 <template>
-  <div class="box">
+  <!-- <div ></div> -->
+  <div class="box" id="app">
     <!-- 导航栏 -->
     <van-nav-bar class="page-nav-bar" title="登录" />
     <!-- 登录区域 -->
@@ -116,9 +117,9 @@ export default {
         this.$toast.success('登录成功')
       } catch (err) {
         // console.log(err)
-        // if (err.status !== 201) {
-        this.$toast.fail('登录失败')
-        // }
+        if (err.status !== 201) {
+          this.$toast.fail('登录失败')
+        }
       }
     },
     // 点击验证码事件

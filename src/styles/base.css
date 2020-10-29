@@ -2,5 +2,7 @@
     /* background-color: red; */
     width: 100%;
     height: 100vh;
+    /* overflow: hidden; */
+    box-sizing: border-box;
     background-color: #f5f7f9;
 }
