@@ -30,3 +30,27 @@ export const UserChannel = () => {
     url: '/app/v1_0/user/channels'
   })
 }
+// 所有频道列表
+export const Channel = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/channels'
+  })
+}
+// 批量修改用户频道列表（部分覆盖）
+export const AddUserChannel = channels => {
+  return request({
+    method: 'PATCH',
+    url: '/app/v1_0/user/channels',
+    data: {
+      channels: [channels]
+    }
+  })
+}
+// 删除指定用户频道
+export const DeleteSpecifiedUser = ChannelId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/user/channels/${ChannelId}`
+  })
+}

@@ -37,7 +37,7 @@ export default {
 }
 .box {
   // width: 100%;
-  z-index: 999;
+  z-index: 99;
   // height: 79vh;
 }
 </style>

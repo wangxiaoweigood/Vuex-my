@@ -8,7 +8,8 @@ import './utils/request' // 导入axios
 import './styles/base.css'
 import './styles/index.css'
 import './api/user'
-
+// import './utils/dayjs' // 处理时间的包
+import './utils/day'
 // import "./utils/register-vant.js";
 Vue.config.productionTip = false
 

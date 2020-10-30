@@ -110,7 +110,7 @@ export default {
       })
       try {
         const { data } = await login(this.user)
-        console.log(data)
+        // console.log(data)
         this.$store.commit('setUser', data.data)
         console.log(data.data)
         this.$router.push('layout')
@@ -123,11 +123,7 @@ export default {
       }
     },
     // 点击验证码事件
-    // Captcha () {
-    //   console.log('1')
-    // }
     async Captcha () {
-      // console.log('1')
       // 1 验证手机号码。
       try {
         await this.$refs.LoginForm.validate('mobile')

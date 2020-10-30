@@ -6,6 +6,7 @@
       :success-text="refreshSuccess"
     >
       <van-list
+        class="lessss"
         v-model="loading"
         :finished="finished"
         finished-text="没有更多了"
@@ -111,11 +112,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .box {
-  // width: 100%;
+  // height: 100%;
+  z-index: 99;
   padding-top: 85px;
   padding-bottom: 100px;
-  height: 79vh;
   overflow-y: auto;
 }
 </style>
