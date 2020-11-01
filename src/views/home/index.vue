@@ -3,6 +3,7 @@
     <!-- 搜索区域 -->
     <div class="nav-box">
       <van-search
+        @click="InputKeyword"
         class="homo-search"
         v-model="value"
         shape="round"
@@ -117,6 +118,10 @@ export default {
     },
     ClickPopUp () {
       this.isChannelShow = true
+    },
+    // 点击输入框跳转页面
+    InputKeyword () {
+      this.$router.push('search')
     }
   }
 }

@@ -1,5 +1,8 @@
 .page-nav-bar {
-  background-color: #000;
+  /* background-color: #000; */
+    background: url("../img/1433263250c022089d88ad95eaa6a535.jpg") no-repeat 
+    0px 0px;
+    background-size: cover;
 }
 .page-nav-bar .van-nav-bar__title {
   color: #fff !important;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="user">
+    <div v-if="user" :model="userInfo">
       <!-- 已登录头部 -->
       <header>
         <div class="login-bonne">
@@ -9,10 +9,10 @@
               round
               width="80"
               height="80"
-              src="https://img.yzcdn.cn/vant/cat.jpeg"
+              :src="userInfo.photo"
               cover
             />
-            <span class="name">黑马头条号</span>
+            <span class="name">{{ userInfo.name }}</span>
           </div>
 
           <div class="login-right">
@@ -21,19 +21,19 @@
         </div>
         <div class="login-top">
           <div class="data-item">
-            <span class="count">8</span>
+            <span class="count">{{ userInfo.art_count }}</span>
             <span class="text">头条</span>
           </div>
           <div class="data-item">
-            <span class="count">66</span>
+            <span class="count">{{ userInfo.follow_count }}</span>
             <span class="text">关注</span>
           </div>
           <div class="data-item">
-            <span class="count">88</span>
+            <span class="count">{{ userInfo.fans_count }}</span>
             <span class="text">粉丝</span>
           </div>
           <div class="data-item">
-            <span class="count">99</span>
+            <span class="count">{{ userInfo.like_count }}</span>
             <span class="text">获赞</span>
           </div>
         </div>
@@ -111,8 +111,9 @@ export default {
     },
     // 获取个人信息
     async loadUserInfo () {
-      const { data } = await getUserInfo()
-      console.log(data)
+      const { data: res } = await getUserInfo()
+      console.log(res.data)
+      this.userInfo = res.data
     }
   }
 }

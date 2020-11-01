@@ -112,12 +112,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
 .box {
-  // height: 100%;
+  height: 100%;
   z-index: 99;
-  padding-top: 85px;
+  padding-top: 65px;
   padding-bottom: 100px;
   overflow-y: auto;
+  // background-color: red;
 }
 </style>

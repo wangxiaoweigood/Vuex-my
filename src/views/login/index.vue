@@ -2,7 +2,11 @@
   <!-- <div ></div> -->
   <div class="box" id="app">
     <!-- 导航栏 -->
-    <van-nav-bar class="page-nav-bar" title="登录" />
+
+    <van-nav-bar class="page-nav-bar" name="" title="登录"
+      ><van-icon name="arrow-left"
+    /></van-nav-bar>
+
     <!-- 登录区域 -->
     <van-form @submit="onSubmit" ref="LoginForm">
       <van-field
@@ -184,8 +188,8 @@ export default {
     margin-top: 40px;
     border-radius: 100px;
   }
-  .page-nav-bar {
-    border: none;
-  }
 }
+// .page-nav-bar {
+//   border: none;
+// }
 </style>

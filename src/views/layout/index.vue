@@ -39,5 +39,6 @@ export default {
   // width: 100%;
   z-index: 99;
   // height: 79vh;
+  // margin-bottom:px;
 }
 </style>
