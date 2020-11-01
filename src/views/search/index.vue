@@ -63,7 +63,7 @@ export default {
   props: {},
   watch: {
     searchlist (val) {
-      console.log(val)
+      // console.log(val)
       setItem('TOUTIAO-SEARCH-HISTORY', val)
     }
   },

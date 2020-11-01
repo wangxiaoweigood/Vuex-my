@@ -120,11 +120,11 @@ export default {
       if (this.user) {
         // 已登录就吧数据放到后台数据里
         try {
-          const res = await AddUserChannel({
+          await AddUserChannel({
             id: arr.id,
             seq: this.myChannels.length
           })
-          console.log(res)
+          // console.log(res)
         } catch (err) {
           console.log(err)
           this.$toast('保存失败', err)
@@ -140,7 +140,7 @@ export default {
     },
     // 点击我的频道里的内容去跳转对应的页面
     MyChannel (item, index) {
-      console.log(item, index)
+      // console.log(item, index)
       if (this.shou) {
         if (this.FixedChannel.includes(item.id)) {
           return

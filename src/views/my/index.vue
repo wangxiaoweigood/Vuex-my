@@ -106,13 +106,13 @@ export default {
           this.$store.commit('setUser', null)
         })
         .catch(() => {
-          console.log('1')
+          // console.log('1')
         })
     },
     // 获取个人信息
     async loadUserInfo () {
       const { data: res } = await getUserInfo()
-      console.log(res.data)
+      // console.log(res.data)
       this.userInfo = res.data
     }
   }
@@ -140,14 +140,12 @@ export default {
       color: #fff;
     }
   }
-  // background-size: contain;
 }
 header {
   background: url("../../img/banner.png") no-repeat 0px 0px;
   box-sizing: border-box;
   .login-bonne {
     height: 231px;
-    // background-color: rgb(15, 12, 204);
     padding: 76px 32px 23px;
     display: flex;
     justify-content: space-between;
@@ -163,7 +161,6 @@ header {
     align-items: center;
   }
   .login-top {
-    // background-color: #ccc;
     display: flex;
 
     .data-item {
@@ -190,10 +187,8 @@ header {
 }
 .i-sc,
 .i-wz {
-  // font-style: 70px !important;
   font-size: 50px !important;
   color: #f4ea2a;
-  // ma-top: 20px;
   padding-bottom: 20px;
 }
 .van-box {

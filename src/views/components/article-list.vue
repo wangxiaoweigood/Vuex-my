@@ -32,9 +32,7 @@
 
 <script>
 import { getArticles } from '../../api/article'
-// import Articleitem from '../../components/article-item/index'
 import ArticleItem from '../../components/article-item'
-// import ArticleList from '../components/article-list'
 export default {
   name: 'articleitem',
 
@@ -71,17 +69,17 @@ export default {
         // if (Math.random() > 0.5) {
         //   JSON.parse('dsnajndjsa')
         // }
-        console.log(res.data)
+        // console.log(res.data)
         const { results } = res.data
         this.list.push(...results)
-        console.log(this.list)
+        // console.log(this.list)
         this.loading = false
         if (results.length) {
           this.timestamp = res.data.pre_timestamp
         }
         this.finished = true
       } catch (err) {
-        // this.$toase.fail('登录失败', err)
+        this.$toast.fail('登录失败', err)
         this.error = true
         this.loading = false
       }
@@ -95,16 +93,16 @@ export default {
         })
         // this.$toase.success('1')
         const { results } = res.data
-        console.log(results)
+        // console.log(results)
         this.list.unshift(...results)
         this.isLoading = false
         this.refreshSuccess = '刷新成功!'
         // this.$toast.success('登录成功')
         this.$toast.success(`更新了${results.length}条`)
 
-        console.log(res)
+        // console.log(res)
       } catch (err) {
-        // this.$toase.fail('登录失败', err)
+        this.$toast('登录失败', err)
       }
     }
   }

@@ -12,7 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     setUser (state, data) {
-      console.log('111')
       // console.log(state)
       state.user = data
       setItem(TOKEN_KEY, state.user)

@@ -82,8 +82,8 @@ export default {
       // console.log(data)
       try {
         // this.channels = res.data.channels
-        const channels = []
-        console.log(channels)
+        // const channels = []
+        // console.log(channels)
         if (this.user) {
           // 已登录
           const { data: res } = await UserChannel()

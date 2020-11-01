@@ -39,7 +39,7 @@
           <van-count-down
             @finish="Countdown = false"
             v-if="Countdown"
-            :time="10000 * 0.5"
+            :time="10000 * 6"
             format="ss s"
           />
           <van-button
@@ -106,7 +106,7 @@ export default {
   methods: {
     // 表单事件
     async onSubmit () {
-      console.log(this.user)
+      // console.log(this.user)
       this.$toast.loading({
         message: '加载中...',
         forbidClick: true, // 禁止背景点击
