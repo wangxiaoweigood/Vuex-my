@@ -5,7 +5,7 @@
       v-model="loading"
       :finished="finished"
       finished-text="没有更多了"
-      :error="error"
+      :error.sync="error"
       error-text="请求失败，点击重新加载"
       @load="onLoad"
     >
@@ -47,9 +47,8 @@ export default {
           per_page: this.per_page, // 每页的数量
           q: this.searchText
         })
-        // this.searchList = res.data
+        // console.log(res)
         const { results } = res.data
-        // console.log(results)
         this.searchList.push(...results)
         this.loading = false
         if (results.length) {

@@ -12,6 +12,7 @@
         @search="onSearch"
         @cancel="onCancel"
         @clear="onRemove"
+        @input="valle"
       />
     </form>
     <!-- /搜索框区域 -->
@@ -30,7 +31,12 @@
     <!-- /联想建议区域 -->
 
     <!-- 搜索历史记录区域 -->
-    <search-history v-else :search-list="searchlist" />
+    <search-history
+      v-else
+      :search-list="searchlist"
+      @delete-all="searchlist = []"
+      @search="onSearch"
+    />
     <!-- /搜索历史记录区域 -->
   </div>
 </template>
@@ -39,13 +45,13 @@
 import SearchHistory from '../search/components/search-history' // 导入模块
 import SearchSuggestion from '../search/components/search-suggestion' // 导入模块
 import SearchResult from '../search/components/search-result' // 导入模块
-
+import { setItem, getItem } from '@/utils/storage'
 export default {
   name: 'search',
   data () {
     return {
       searchText: '',
-      searchlist: [],
+      searchlist: getItem('TOUTIAO-SEARCH-HISTORY' || []), // 搜索历史存放的值
       isResultShow: false
     }
   },
@@ -55,10 +61,17 @@ export default {
     SearchResult
   },
   props: {},
+  watch: {
+    searchlist (val) {
+      console.log(val)
+      setItem('TOUTIAO-SEARCH-HISTORY', val)
+    }
+  },
   methods: {
     // 监听输入框输完的内容val就是输入框里的内容
     onSearch (val) {
       //   console.log(val)
+      this.searchText = val
       const index = this.searchlist.indexOf(val)
       if (index !== -1) {
         this.searchlist.splice(index, 1)
@@ -75,6 +88,12 @@ export default {
     onRemove () {
       //   console.log('1')
       this.isResultShow = false
+    },
+    // 监听输入框的有没有内容
+    valle (val) {
+      if (val === '') {
+        this.isResultShow = false
+      }
     }
   }
 }
