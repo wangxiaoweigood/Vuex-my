@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="article-item">文章列表内容</div> -->
 
-  <van-cell class="article-item">
+  <van-cell class="article-item" :to="`/article/${article.art_id.toString()}`">
     <div slot="title" class="van-multi-ellipsis--l2">{{ article.title }}</div>
     <div slot="label">
       <!-- 下方三个图片的 -->

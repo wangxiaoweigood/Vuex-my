@@ -114,7 +114,7 @@ export default {
     },
     // 点击图标弹出
     showPopup () {
-      console.log('1')
+      // console.log('1')
     },
     ClickPopUp () {
       this.isChannelShow = true

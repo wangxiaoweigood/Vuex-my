@@ -41,14 +41,15 @@ const routes = [
     ]
   },
   {
-    path: '/search',
+    path: '/search', // 文章搜索
     name: 'search',
     component: () => import('@/views/search')
   },
   {
-    path: '/article',
+    path: '/article/:articleId', // 文章详情
     name: 'article',
-    component: () => import('@/views/article')
+    component: () => import('@/views/article'),
+    props: true // <= 开启props传参
   }
 ]
 

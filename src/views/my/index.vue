@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="user" :model="userInfo">
+    <div v-if="user">
       <!-- 已登录头部 -->
       <header>
         <div class="login-bonne">

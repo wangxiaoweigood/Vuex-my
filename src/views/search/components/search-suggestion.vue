@@ -40,7 +40,7 @@ export default {
       //   },
       // 做节流优化
       handler: debounce(function (val) {
-        // console.log(val)
+        // console.log(val + '111')
         this.LenovoSuggest(val)
       }, 300),
       immediate: true
