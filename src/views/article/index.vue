@@ -58,16 +58,16 @@
           ref="article.content"
         ></div>
         <van-divider>正文结束</van-divider>
-        <!-- <component-list
+        <component-list
           :list="commentList"
           :source="article.art_id"
           @onloads_success="totalCount = $event.total_count"
-        /> -->
+        />
         <!-- 上面是没改的，下面是改的 -->
-        <component-list
+        <!-- <component-list
           :source="article.art_id"
           @onloads_success="totalCount = $event.total_count"
-        />
+        /> -->
         <!-- /文章内容 -->
         <!-- 底部区域 -->
         <div class="article-bottom">
