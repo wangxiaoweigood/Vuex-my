@@ -4,7 +4,7 @@
     <!-- 路由占位符 -->
     <router-view />
     <!-- 底部导航栏 -->
-    <van-tabbar v-model="active" route class="box">
+    <van-tabbar route class="box">
       <van-tabbar-item icon="home-o" to="/layout">主页</van-tabbar-item>
       <van-tabbar-item icon="search" to="/qa">问答</van-tabbar-item>
       <van-tabbar-item icon="friends-o" to="/video">视频</van-tabbar-item>
@@ -18,9 +18,7 @@
 <script>
 export default {
   data () {
-    return {
-      active: ''
-    }
+    return {}
   }
 }
 </script>

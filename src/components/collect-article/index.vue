@@ -5,7 +5,7 @@
     :name="value ? 'star' : 'star-o'"
     class="{ colleacted:value }"
     @click="Article"
-    :loding="loding"
+    :loading="loding"
   />
 </template>
 

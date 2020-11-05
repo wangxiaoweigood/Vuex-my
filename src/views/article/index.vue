@@ -58,13 +58,28 @@
           ref="article.content"
         ></div>
         <van-divider>正文结束</van-divider>
+        <!-- <component-list
+          :list="commentList"
+          :source="article.art_id"
+          @onloads_success="totalCount = $event.total_count"
+        /> -->
+        <!-- 上面是没改的，下面是改的 -->
+        <component-list
+          :source="article.art_id"
+          @onloads_success="totalCount = $event.total_count"
+        />
         <!-- /文章内容 -->
         <!-- 底部区域 -->
         <div class="article-bottom">
-          <van-button class="comment-btn" type="default" round size="small"
+          <van-button
+            class="comment-btn"
+            type="default"
+            round
+            size="small"
+            @click="showPopup"
             >写评论</van-button
           >
-          <van-icon name="comment-o" info="123" color="#777" />
+          <van-icon name="comment-o" :info="totalCount" color="#777" />
 
           <collect-article
             v-model="article.is_collected"
@@ -77,6 +92,15 @@
           <van-icon name="share" color="#777777"></van-icon>
         </div>
         <!-- /底部区域 -->
+        <!-- 评论弹出层 -->
+        <!-- <van-cell is-link>展示弹出层</van-cell> -->
+        <van-popup v-model="show" position="bottom">
+          <!-- 输入内容 -->
+          <component-post
+            :targets="article.art_id"
+            @posh-success="onPostSuccess"
+          />
+        </van-popup>
       </div>
 
       <!-- /加载完成-文章详情 -->
@@ -104,13 +128,17 @@ import { ImagePreview } from 'vant' // 图片预览
 import { getArticleById } from '@/api/article'
 import FollowUser from '@/components/follow/index'
 import CollectArticle from '@/components/collect-article'
-import LikeArticel from '../../components/like-article'
+import LikeArticel from '@/components/like-article'
+import ComponentList from '../components/component-list'
+import ComponentPost from '../components/comment-post'
 export default {
   name: 'ArticleIndex',
   components: {
     FollowUser,
     CollectArticle,
-    LikeArticel
+    LikeArticel,
+    ComponentList,
+    ComponentPost
   },
   props: {
     articleId: {
@@ -126,7 +154,10 @@ export default {
       errStatus: 0, // 失败的状态码
       closeable: true,
       articleContent: {}, // 图片数据
-      followLoading: false
+      followLoading: false,
+      totalCount: 0,
+      show: false,
+      commentList: [] // 评论列表
     }
   },
   computed: {},
@@ -170,6 +201,15 @@ export default {
           })
         }
       })
+    },
+    // 点击评论展示弹出层
+    showPopup () {
+      this.show = true
+    },
+    // 子组件传来的值关闭弹出层
+    onPostSuccess (data) {
+      this.show = false
+      this.commentList.unshift(data.new_obj)
     }
   }
 }

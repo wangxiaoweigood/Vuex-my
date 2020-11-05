@@ -2,6 +2,7 @@
 <template>
   <van-icon
     :name="value === 1 ? 'good-job' : 'good-job-o'"
+    :loading="loding"
     :class="{
       liked: value === 1,
     }"
@@ -15,7 +16,6 @@ export default {
   name: 'LikeArticel',
   props: {
     value: {
-      type: Number,
       required: true
     },
     articleId: {
@@ -28,7 +28,7 @@ export default {
   data () {
     // 这里存放数据
     return {
-      loading: false
+      loding: false
     }
   },
   // 监听属性 类似于data概念
@@ -38,7 +38,7 @@ export default {
   // 方法集合
   methods: {
     async onCollect () {
-      this.loading = true
+      this.loding = true
 
       try {
         let status = -1
@@ -56,7 +56,7 @@ export default {
         this.$toast('设置失败')
         console.log(err)
       }
-      this.loading = false
+      this.loding = false
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
