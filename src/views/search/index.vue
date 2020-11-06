@@ -46,12 +46,15 @@ import SearchHistory from '../search/components/search-history' // 导入模块
 import SearchSuggestion from '../search/components/search-suggestion' // 导入模块
 import SearchResult from '../search/components/search-result' // 导入模块
 import { setItem, getItem } from '@/utils/storage'
+// import { setItem } from '@/utils/storage'
+
 export default {
   name: 'search',
   data () {
     return {
       searchText: '',
       searchlist: getItem('TOUTIAO-SEARCH-HISTORY' || []), // 搜索历史存放的值
+      // searchlist: [],
       isResultShow: false
     }
   },
@@ -70,7 +73,7 @@ export default {
   methods: {
     // 监听输入框输完的内容val就是输入框里的内容
     onSearch (val) {
-      //   console.log(val)
+      // console.log(val)
       this.searchText = val
       const index = this.searchlist.indexOf(val)
       if (index !== -1) {
@@ -78,6 +81,7 @@ export default {
       }
       this.searchlist.unshift(val)
       this.isResultShow = true
+      // this.searchlist.push(val)
     },
     // 取消按钮
     onCancel () {

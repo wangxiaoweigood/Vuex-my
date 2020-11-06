@@ -28,7 +28,7 @@ export default {
   name: 'searchlist',
   props: {
     searchList: {
-      type: Array,
+      // type: Array,
       required: true
     }
   },

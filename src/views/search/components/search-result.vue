@@ -21,7 +21,7 @@
 <script>
 import { getSearchLenovo } from '@/api/search'
 export default {
-  name: 'result',
+  name: 'searchresult',
   data () {
     return {
       searchList: [], // 搜索的所有数据
@@ -41,15 +41,18 @@ export default {
   methods: {
     async onLoad () {
       // 异步更新数据
+      // console.log('this.searchText')
       try {
         const { data: res } = await getSearchLenovo({
           page: this.page, // 页码
           per_page: this.per_page, // 每页的数量
           q: this.searchText
         })
-        // console.log(res)
-        const { results } = res.data
+
+        // console.log(res.data.results.title)
+        const results = res.data.results
         this.searchList.push(...results)
+
         this.loading = false
         if (results.length) {
           this.page++

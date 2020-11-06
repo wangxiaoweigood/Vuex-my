@@ -50,7 +50,7 @@ export default {
     async LenovoSuggest (q) {
       try {
         const res = await getSearchLenovoSuggest(q)
-        // console.log(res.data.data.options)
+        // console.log(res)
         this.suggest = res.data.data.options
         // console.log(res)
       } catch (err) {
