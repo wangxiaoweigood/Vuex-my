@@ -62,7 +62,6 @@
 
 <script>
 import { login, sendSms } from '@/api/user'
-// import { login } from "@/api/user";
 
 export default {
   name: 'LoginIndex',
@@ -71,8 +70,8 @@ export default {
   data () {
     return {
       user: {
-        mobile: '', // 手机号
-        code: '' // 验证码
+        mobile: '17647421036', // 手机号
+        code: '246810' // 验证码
       },
       FormRules: {
         mobile: [

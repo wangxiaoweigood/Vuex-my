@@ -5,4 +5,5 @@
     /* overflow: hidden; */
     box-sizing: border-box;
     background-color: #f5f7f9;
+    /* overflow-y: auto; */
 }

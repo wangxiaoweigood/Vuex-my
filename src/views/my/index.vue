@@ -16,7 +16,9 @@
           </div>
 
           <div class="login-right">
-            <van-button size="mini" round>编辑资料</van-button>
+            <van-button size="mini" round to="/uesr/profile"
+              >编辑资料</van-button
+            >
           </div>
         </div>
         <div class="login-top">

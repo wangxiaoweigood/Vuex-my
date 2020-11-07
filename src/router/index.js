@@ -50,6 +50,11 @@ const routes = [
     name: 'article',
     component: () => import('@/views/article'),
     props: true // <= 开启props传参
+  },
+  {
+    path: '/uesr/profile',
+    name: 'uesr-profile',
+    component: () => import('@/views/uesr-profile')
   }
 ]
 

@@ -1,26 +1,27 @@
-
+<!-- 修改生日子页面 -->
 <template>
-  <van-icon
-    color="#777"
-    :name="value ? 'star' : 'star-o'"
-    class="{ colleacted:value }"
-    @click="Article"
-    :loading="loding"
-  />
+  <div class="update-birthday">
+    <van-datetime-picker
+      v-model="currentDate"
+      type="date"
+      title="选择年月日"
+      :min-date="minDate"
+      :max-date="maxDate"
+      @cancel="$emit('close')"
+      @confirm="onClickRight"
+    />
+  </div>
 </template>
 
 <script>
-import { CollectionArticles, CancellationTheArticle } from '@/api/article'
+import { patchPersinel } from '@/api/user'
+import dayjs from 'dayjs'
 
 export default {
-  name: 'CollectArticle',
+  name: 'UpdateBirthday',
   props: {
     value: {
-      type: Boolean,
-      required: true
-    },
-    articleId: {
-      type: [Object, String, Number],
+      type: String,
       required: true
     }
   },
@@ -29,7 +30,9 @@ export default {
   data () {
     // 这里存放数据
     return {
-      loding: false
+      minDate: new Date(1990, 0, 1),
+      maxDate: new Date(),
+      currentDate: new Date(this.value)
     }
   },
   // 监听属性 类似于data概念
@@ -38,24 +41,16 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    async Article () {
-      this.loding = true
-      try {
-        if (this.value) {
-          // 已收藏。则取消
-          await CancellationTheArticle(this.articleId)
-          this.$toast.fail('已取消')
-        } else {
-          // 未收藏则收藏
-          await CollectionArticles(this.articleId)
-          this.$toast.success('已收藏')
-        }
-        // 更新视图
-        this.$emit('input', !this.value)
-      } catch (err) {
-        this.$toast('设置失败请稍后重试')
-      }
-      this.loding = false
+    async onClickRight () {
+      const currentDate = dayjs(this.currentDate).format('YYYY-MM-DD')
+      //   console.log(currentDate)
+      //   console.log(this.currentDate)
+      const res = await patchPersinel({
+        birthday: currentDate
+      })
+      console.log(res)
+      this.$emit('input', this.currentDate)
+      this.$emit('close')
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -73,8 +68,4 @@ export default {
 </script>
 <style lang='less' scoped>
 /* @import url(); 引入公共css类 */
-
-.van-icon {
-  color: #ffa500 !important;
-}
 </style>

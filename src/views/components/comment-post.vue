@@ -30,28 +30,36 @@ export default {
       required: true
     }
   },
+  inject: {
+    articleId: {
+      type: [Object, String, Number],
+      default: null
+    }
+  },
   data () {
     return {
       message: ''
     }
   },
+
   computed: {},
   watch: {},
   created () {},
   mounted () {},
   methods: {
     async onAddComment () {
-      //   console.log(this.targets)
+      // console.log(this.targets)
       this.$toast.loading({
         message: '发布中',
         forbidClick: true, // 禁止背景点击
         duration: 0 // 持续事件，如果另外生效了提醒上一个提醒就会关闭
       })
       try {
+        // console.log(this.targets.toString())
         const { data: res } = await addComment({
-          target: this.targets,
+          target: this.targets.toString(),
           content: this.message,
-          art_id: null
+          art_id: this.articleId ? this.articleId.toString() : null
         })
         this.message = ''
         this.$emit('posh-success', res.data)

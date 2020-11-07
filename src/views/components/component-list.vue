@@ -7,8 +7,14 @@
     :error.sync="error"
     error-text="请求失败，点击重新加载"
     @load="onLoad"
+    :immediate-check="false"
   >
-    <comment-item v-for="(item, index) in list" :key="index" :comment="item" />
+    <comment-item
+      v-for="(item, index) in list"
+      :key="index"
+      :comment="item"
+      @reqly-click="$emit('reqly-click', $event)"
+    />
   </van-list>
 </template>
 
@@ -25,6 +31,13 @@ export default {
     list: {
       type: Array,
       default: () => []
+    },
+    type: {
+      type: String,
+      validator (value) {
+        return ['a', 'c'].includes(value)
+      },
+      default: 'a'
     }
   },
   components: { CommentItem },
@@ -46,15 +59,15 @@ export default {
   // 方法集合
   methods: {
     async onLoad () {
-      // console.log(this.source.toString())
       try {
         const { data: res } = await getComments({
-          type: 'a',
+          type: this.type,
           source: this.source.toString(),
           offset: this.offset,
           limit: this.limit
         })
         const results = res.data.results
+        // const { total_count: totalCount } = res.data
         this.$emit('onloads_success', res.data)
         this.list.push(...results)
         this.loading = false

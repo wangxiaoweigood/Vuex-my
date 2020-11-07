@@ -58,16 +58,18 @@
           ref="article.content"
         ></div>
         <van-divider>正文结束</van-divider>
-        <component-list
+        <!-- <component-list
           :list="commentList"
           :source="article.art_id"
           @onloads_success="totalCount = $event.total_count"
-        />
-        <!-- 上面是没改的，下面是改的 -->
-        <!-- <component-list
-          :source="article.art_id"
-          @onloads_success="totalCount = $event.total_count"
         /> -->
+        <component-list
+          @reqly-click="OnReqlyClick"
+          :list="commentList"
+          :source="article.art_id"
+          @onloads_success="totalCounts"
+        />
+
         <!-- /文章内容 -->
         <!-- 底部区域 -->
         <div class="article-bottom">
@@ -120,6 +122,19 @@
       </div>
       <!-- /加载失败：其它未知错误（例如网络原因或服务端异常） -->
     </div>
+    <!-- 评论回复弹出层 -->
+    <van-popup
+      v-model="isReplyShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+    >
+      <comment-reply
+        :comment="currentComment"
+        @close="isReplyShow = false"
+        v-if="isReplyShow"
+      />
+    </van-popup>
+    <!-- 评论回复弹出层 -->
   </div>
 </template>
 
@@ -131,6 +146,7 @@ import CollectArticle from '@/components/collect-article'
 import LikeArticel from '@/components/like-article'
 import ComponentList from '../components/component-list'
 import ComponentPost from '../components/comment-post'
+import CommentReply from '../components/comment-reply'
 export default {
   name: 'ArticleIndex',
   components: {
@@ -138,7 +154,8 @@ export default {
     CollectArticle,
     LikeArticel,
     ComponentList,
-    ComponentPost
+    ComponentPost,
+    CommentReply
   },
   props: {
     articleId: {
@@ -146,7 +163,12 @@ export default {
       required: true
     }
   },
-
+  // 给所有子组件传值
+  provide: function () {
+    return {
+      articleId: this.articleId
+    }
+  },
   data () {
     return {
       article: {},
@@ -157,7 +179,9 @@ export default {
       followLoading: false,
       totalCount: 0,
       show: false,
-      commentList: [] // 评论列表
+      commentList: [], // 评论列表
+      isReplyShow: false, // 评论回复弹出层
+      currentComment: [] // 子子组件传来的回复内容
     }
   },
   computed: {},
@@ -165,6 +189,7 @@ export default {
   watch: {},
   created () {
     this.loadArticle()
+    // this.totalCounts()
   },
   mounted () {},
   methods: {
@@ -180,7 +205,7 @@ export default {
           this.previrwImagr()
         }, 0)
       } catch (err) {
-        console.log(err)
+        // console.log(err)
         if (err.responsr && err.responsr.status === 404) {
           this.errStatus = 404
         }
@@ -202,6 +227,9 @@ export default {
         }
       })
     },
+    totalCounts (toto) {
+      this.totalCount = toto.total_count
+    },
     // 点击评论展示弹出层
     showPopup () {
       this.show = true
@@ -210,6 +238,14 @@ export default {
     onPostSuccess (data) {
       this.show = false
       this.commentList.unshift(data.new_obj)
+      // this.loadArticle()
+    },
+    // 子组件的子组件传来的值点击回复按钮弹出回复弹出层
+    OnReqlyClick (comment) {
+      // comment是子组件的子组件传来的当前点击回复的内容
+      // console.log(comment)
+      this.currentComment = comment
+      this.isReplyShow = true
     }
   }
 }

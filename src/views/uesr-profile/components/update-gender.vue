@@ -1,26 +1,25 @@
-
+<!-- 选择性别区域 -->
 <template>
-  <van-icon
-    color="#777"
-    :name="value ? 'star' : 'star-o'"
-    class="{ colleacted:value }"
-    @click="Article"
-    :loading="loding"
-  />
+  <div class="update-gender">
+    <van-picker
+      title="标题"
+      show-toolbar
+      :columns="columns"
+      @confirm="onClickRight"
+      @cancel="$emit('close')"
+      :defaultIndex="value"
+      @change="onChange"
+    />
+  </div>
 </template>
 
 <script>
-import { CollectionArticles, CancellationTheArticle } from '@/api/article'
-
+import { patchPersinel } from '../../../api/user'
 export default {
-  name: 'CollectArticle',
+  name: 'UpdateGender',
   props: {
     value: {
-      type: Boolean,
-      required: true
-    },
-    articleId: {
-      type: [Object, String, Number],
+      type: Number,
       required: true
     }
   },
@@ -29,7 +28,8 @@ export default {
   data () {
     // 这里存放数据
     return {
-      loding: false
+      columns: ['女', '男'],
+      locaGender: this.value
     }
   },
   // 监听属性 类似于data概念
@@ -38,24 +38,15 @@ export default {
   watch: {},
   // 方法集合
   methods: {
-    async Article () {
-      this.loding = true
-      try {
-        if (this.value) {
-          // 已收藏。则取消
-          await CancellationTheArticle(this.articleId)
-          this.$toast.fail('已取消')
-        } else {
-          // 未收藏则收藏
-          await CollectionArticles(this.articleId)
-          this.$toast.success('已收藏')
-        }
-        // 更新视图
-        this.$emit('input', !this.value)
-      } catch (err) {
-        this.$toast('设置失败请稍后重试')
-      }
-      this.loding = false
+    onChange (picker, value, index) {
+      this.locaGender = index
+    },
+    async onClickRight () {
+      await patchPersinel({
+        gender: this.locaGender
+      })
+      this.$emit('input', this.locaGender)
+      this.$emit('close')
     }
   },
   // 生命周期 - 创建完成（可以访问当前this实例）
@@ -73,8 +64,4 @@ export default {
 </script>
 <style lang='less' scoped>
 /* @import url(); 引入公共css类 */
-
-.van-icon {
-  color: #ffa500 !important;
-}
 </style>
